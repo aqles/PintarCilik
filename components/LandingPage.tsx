@@ -4,10 +4,12 @@ import { Rocket, BookOpen, Star, Sparkles, Brain, LogIn, Loader2 } from 'lucide-
 import { signInWithGoogle } from '../services/supabaseClient';
 
 interface LandingPageProps {
-  onStart: () => void; // Disimpen buat jaga-jaga kompatibilitas, meskipun sekarang udah pake auth.
+  onStart: () => void;
+  onPrivacy?: () => void;
+  onAbout?: () => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = () => {
+const LandingPage: React.FC<LandingPageProps> = ({ onStart, onPrivacy, onAbout }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -95,6 +97,16 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         <p className="mt-6 text-sm text-gray-400">
           Wajib login untuk menyimpan progress belajar
         </p>
+
+        {/* Footer Links */}
+        <div className="mt-12 flex justify-center gap-6 text-sm text-gray-400">
+          <button onClick={onPrivacy} className="hover:text-indigo-500 transition-colors">Kebijakan Privasi</button>
+          <button onClick={onAbout} className="hover:text-pink-500 transition-colors">Tentang Kami</button>
+        </div>
+
+        <div className="mt-4 text-xs text-gray-300">
+          Part of <a href="https://ednasalam.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">EdnaSalam.com</a>
+        </div>
       </div>
     </div>
   );
