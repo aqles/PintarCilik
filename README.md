@@ -9,8 +9,8 @@
   </p>
 
   <p>
-    <a href="https://pintar-calistung.vercel.app">
-      <img src="https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+    <a href="https://calistung.ednasalam.com">
+      <img src="https://img.shields.io/badge/Live_Demo-calistung.ednasalam.com-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
     </a>
     <img src="https://img.shields.io/badge/Tech_Stack-React_%7C_Vite_%7C_Tailwind-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="Tech Stack">
     <img src="https://img.shields.io/badge/AI_Powered-Gemini_2.0-8E75B2?style=for-the-badge&logo=google&logoColor=white" alt="AI Powered">

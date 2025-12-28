@@ -10,7 +10,7 @@ export const saveGameResult = async (userId: string, result: GameResult) => {
   if (!userId) return;
 
   const { error } = await supabase
-    .from('game_results')
+    .from('calistung_game_results')
     .insert([
       {
         user_id: userId,
@@ -36,7 +36,7 @@ export const getUserHistory = async (userId: string): Promise<GameResult[]> => {
   if (!userId) return [];
 
   const { data, error } = await supabase
-    .from('game_results')
+    .from('calistung_game_results')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: true });
@@ -64,7 +64,7 @@ export const upsertUserProfile = async (userId: string, profile: UserProfile) =>
   if (!userId) return;
 
   const { error } = await supabase
-    .from('profiles')
+    .from('calistung_profiles')
     .upsert({
       id: userId,
       name: profile.name,
@@ -73,7 +73,7 @@ export const upsertUserProfile = async (userId: string, profile: UserProfile) =>
       avatar: profile.avatar,
       updated_at: new Date()
     });
-    
+
   if (error) {
     console.error("Error saving profile:", error);
   }
