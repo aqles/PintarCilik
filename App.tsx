@@ -12,7 +12,7 @@ import { BookOpen, Calculator, Trophy, Brain, GraduationCap, Star, LogOut, Loade
 
 // Auth & DB
 import { supabase, signOut } from './services/supabaseClient';
-import { saveGameResult, upsertUserProfile, getUserHistory } from './services/dbService';
+import { saveGameResult, upsertUserProfile, getUserHistory, getUserProfile } from './services/dbService';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('LANDING');
@@ -52,19 +52,23 @@ const App: React.FC = () => {
   }, []);
 
   const loadUserData = async (userId: string) => {
-    // Mock loading existing history from DB
+    // 1. Ambil history game
     const dbHistory = await getUserHistory(userId);
     setHistory(dbHistory);
 
-    // Idealnya ambil profile lengkap dari DB di sini.
-    // Kalau user masih null, lempar ke Profile Setup biar mereka lengkapi data.
+    // 2. Ambil profile user
+    const dbProfile = await getUserProfile(userId);
+
     setLoading(false);
-    // Logikanya: Kalau profile ketemu di DB, langsung ke HOME.
-    // Karena ini demo simulasi, kita cek state local dulu:
-    if (!user) {
-      setView('PROFILE_SETUP');
-    } else {
+
+    // Logika Routing:
+    if (dbProfile) {
+      // User lama -> langsung ke Dashboard
+      setUser(dbProfile);
       setView('HOME');
+    } else {
+      // User baru (atau belum set profile) -> ke Setup
+      setView('PROFILE_SETUP');
     }
   };
 
@@ -157,8 +161,8 @@ const App: React.FC = () => {
               key={lvl}
               onClick={() => setLevel(lvl)}
               className={`flex-1 py-2 px-1 rounded-xl text-xs font-bold transition-all ${user.level === lvl
-                  ? 'bg-indigo-500 text-white shadow-md'
-                  : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
+                ? 'bg-indigo-500 text-white shadow-md'
+                : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
                 }`}
             >
               {lvl}

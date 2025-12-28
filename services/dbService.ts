@@ -56,6 +56,35 @@ export const getUserHistory = async (userId: string): Promise<GameResult[]> => {
   }));
 };
 
+
+/**
+ * Fetches the user profile.
+ */
+export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
+  if (!userId) return null;
+
+  const { data, error } = await supabase
+    .from('calistung_profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    if (error.code !== 'PGRST116') {
+      console.error('Error fetching profile:', error);
+    }
+    return null;
+  }
+
+  // Assuming DB columns match UserProfile fields
+  return {
+    name: data.name,
+    age: data.age,
+    level: data.level,
+    avatar: data.avatar
+  };
+};
+
 /**
  * Updates or creates the user profile.
  * Assumes a table 'profiles' exists.
