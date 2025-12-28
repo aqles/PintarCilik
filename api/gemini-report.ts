@@ -31,7 +31,11 @@ export default async function handler(request, response) {
       2. Area kekuatan (Membaca atau Berhitung).
       3. Saran aktivitas konkret di rumah untuk meningkatkan area yang lebih lemah.
       
-      Gunakan nada yang hangat, menyemangati, dan profesional. Jangan gunakan markdown yang rumit, cukup paragraf dan poin-poin sederhana.
+      Gunakan format Markdown yang rapi:
+      - Gunakan **Bold** untuk penekanan.
+      - Gunakan Heading (## atau ###) untuk memisahkan bagian.
+      - Gunakan daftar (bullet points) untuk poin-poin.
+      - Gunakan nada yang hangat, menyemangati, dan profesional.
     `;
 
         const result = await ai.models.generateContent({
