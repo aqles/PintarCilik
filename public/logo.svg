@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4338ca;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad1)" stroke="#e0e7ff" stroke-width="2" />
+  
+  <!-- Cap Top -->
+  <path d="M50 25 L15 42 L50 59 L85 42 Z" fill="#ffffff" stroke="#e0e7ff" stroke-width="2" stroke-linejoin="round"/>
+  
+  <!-- Cap Bottom -->
+  <path d="M85 42 V65 C85 65 75 75 50 75 C25 75 15 65 15 65 V42" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Tassel -->
+  <line x1="85" y1="42" x2="85" y2="60" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="85" cy="65" r="4" fill="#facc15" />
+
+  <!-- Stars -->
+  <path d="M30 35 L32 40 L37 40 L33 44 L35 49 L30 46 L25 49 L27 44 L23 40 L28 40 Z" fill="#facc15" />
+</svg>
