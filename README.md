@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.freepik.com/free-vector/kids-studying-from-home-concept-illustration_114360-3286.jpg" alt="Pintar Cilik Banner" width="100%" height="auto" style="border-radius: 20px; object-fit: cover; max-height: 300px;">
+  <img src="public/preview-desktop.png" alt="PintarCilik Dashboard" width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
 
   <h1 style="margin-top: 20px; font-size: 3rem;">PintarCilik 🎓</h1>
 
@@ -13,7 +13,7 @@
       <img src="https://img.shields.io/badge/Live_Demo-calistung.ednasalam.com-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
     </a>
     <img src="https://img.shields.io/badge/Tech_Stack-React_%7C_Vite_%7C_Tailwind-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="Tech Stack">
-    <img src="https://img.shields.io/badge/AI_Powered-Gemini_2.0-8E75B2?style=for-the-badge&logo=google&logoColor=white" alt="AI Powered">
+    <img src="https://img.shields.io/badge/AI_Powered-Gemini_2.5-8E75B2?style=for-the-badge&logo=google&logoColor=white" alt="AI Powered">
   </p>
 </div>
 
