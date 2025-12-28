@@ -54,8 +54,8 @@ Ikuti langkah ini untuk menjalankan aplikasi di komputer Anda:
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/aqles/Pintar-Calistung.git
-cd Pintar-Calistung
+git clone https://github.com/aqles/PintarCilik.git
+cd PintarCilik
 ```
 
 ### 2. Install Dependencies
@@ -113,6 +113,6 @@ Ingin berkontribusi? Silakan buat *Pull Request* atau laporkan *issue* jika mene
 ---
 
 <div align="center">
-  <p>Dibuat dengan ❤️ untuk pendidikan Indonesia.</p>
+  <p>Dibuat dengan ❤️ dari Aql untuk pendidikan Indonesia.</p>
   <p>© 2025 PintarCilik Project</p>
 </div>
