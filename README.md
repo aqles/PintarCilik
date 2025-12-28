@@ -113,6 +113,6 @@ Ingin berkontribusi? Silakan buat *Pull Request* atau laporkan *issue* jika mene
 ---
 
 <div align="center">
-  <p>Dibuat dengan ❤️ dari Aql untuk pendidikan Indonesia.</p>
+  <p>Dibuat dengan ❤️ untuk pendidikan Indonesia.</p>
   <p>© 2025 PintarCilik Project</p>
 </div>
