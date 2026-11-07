@@ -49,6 +49,14 @@ npm run dev
 
 Skema database ada di `supabase/schema.sql`. Jalankan file itu di SQL Editor Supabase untuk membuat tabel profil dan hasil permainan, lengkap dengan aturan supaya tiap akun hanya bisa mengakses datanya sendiri.
 
+### Pakai PostgreSQL lain
+
+Databasenya tidak harus di Supabase. Skema di atas isinya PostgreSQL biasa, jadi bisa dipasang di PostgreSQL mana pun. Tapi ada tiga hal yang perlu disesuaikan kalau pindah:
+
+- **Login.** Di versi ini, masuknya pakai akun Google yang ditangani Supabase Auth. Kalau databasenya di tempat lain, loginnya perlu diganti atau tetap ditangani layanan auth terpisah.
+- **Akses data.** Kode membaca dan menulis data lewat pustaka Supabase. Pindah database berarti lapisan ini ikut diganti, misalnya dengan API sendiri.
+- **Aturan akses per akun.** Policy di skema memakai `auth.uid()`, itu cara Supabase mengenali akun yang sedang masuk. Di PostgreSQL lain, fungsi serupa perlu dibuat sendiri supaya tiap akun tetap hanya bisa mengakses datanya sendiri.
+
 ## Teknologi
 
 React 19, Vite 6, TypeScript, Tailwind CSS 4, dan Supabase untuk login dan penyimpanan data.
