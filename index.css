@@ -1,9 +1,37 @@
 @import "tailwindcss";
 
 /* Custom Global Styles that were previously in index.html */
+html {
+    /* Jangan biarkan browser HP mengubah ukuran font seenaknya saat rotasi. */
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     font-family: 'Fredoka', sans-serif;
     background-color: #f0f9ff;
+    /* Hilangkan sorotan abu-abu saat tombol disentuh di HP. */
+    -webkit-tap-highlight-color: transparent;
+    /* Ruang untuk gestur bar HP (notch/gesture bar bawah). */
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Pengaturan kenyamanan (Profil): teks besar menaikkan rem dasar,
+   kurangi gerakan mematikan animasi ambient. */
+html.a11y-large {
+    font-size: 118%;
+}
+
+html.a11y-reduced *,
+html.a11y-reduced *::before,
+html.a11y-reduced *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* min-h-screen Tailwind memakai 100vh yang di HP kepotong address bar;
+   100dvh mengikuti tinggi layar yang benar-benar terlihat. */
+.min-h-screen {
+    min-height: 100dvh;
 }
 
 /* Custom scrollbar for fun look */
@@ -96,5 +124,27 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+/* v2: definisi shake yang dipakai AlertModal & feedback (sebelumnya tidak ada). */
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+/* v2: fokus keyboard harus kelihatan, bukan hanya perubahan warna border. */
+:focus-visible {
+    outline: 3px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* v2: hormati prefers-reduced-motion — matikan loop ambient. */
+@media (prefers-reduced-motion: reduce) {
+    .animate-float, .animate-float-delayed, .animate-bounce-slow, .animate-bounce {
+        animation: none !important;
     }
 }

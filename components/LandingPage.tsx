@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './UI';
 import { Rocket, BookOpen, Star, Sparkles, Brain, LogIn, Loader2 } from 'lucide-react';
 import { signInWithGoogle } from '../services/supabaseClient';
+import { useAlert } from '../context/AlertContext';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -12,13 +13,15 @@ interface LandingPageProps {
 const LandingPage: React.FC<LandingPageProps> = ({ onStart, onPrivacy, onAbout }) => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const { showAlert } = useAlert();
+
   const handleLogin = async () => {
     setIsLoading(true);
     try {
       await signInWithGoogle();
       // Abis login sukses, biasanya redirect otomatis kok.
     } catch (error) {
-      alert("Gagal masuk. Coba lagi ya!");
+      showAlert("Gagal masuk. Coba lagi ya!", 'error');
       setIsLoading(false);
     }
   };
@@ -54,6 +57,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onPrivacy, onAbout }
         <p className="text-gray-600 text-lg mb-8 font-medium">
           Belajar jadi petualangan seru! 🚀
         </p>
+
+        <img src="/maskot-pintarcilik.webp" alt="Maskot PintarCilik, burung hantu yang ramah" className="w-36 h-36 mx-auto rounded-3xl shadow-lg mb-8 object-cover" />
 
         {/* Feature Grid */}
         <div className="grid grid-cols-3 gap-4 mb-10 px-2">

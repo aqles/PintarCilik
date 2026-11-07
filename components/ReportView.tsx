@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { GameResult, UserProfile } from '../types';
-import { generateParentReport } from '../services/geminiService';
+import { buildLocalReport } from '../utils/localReport';
 import { Button, Card } from './UI';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { BrainCircuit, Loader2, Download, Share2, Printer } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { useAlert } from '../context/AlertContext';
 
 interface ReportViewProps {
     history: GameResult[];
@@ -15,12 +15,11 @@ interface ReportViewProps {
 const ReportView: React.FC<ReportViewProps> = ({ history, user, onBack }) => {
     const [aiReport, setAiReport] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const { showAlert } = useAlert();
 
-    const handleGenerateAI = async () => {
-        setLoading(true);
-        const report = await generateParentReport(history, user.name);
-        setAiReport(report);
-        setLoading(false);
+    const handleLocalReport = () => {
+        // v2: laporan dihitung dari data permainan di aplikasi.
+        setAiReport(buildLocalReport(history, user.name));
     };
 
     const handlePrint = () => {
@@ -39,7 +38,7 @@ const ReportView: React.FC<ReportViewProps> = ({ history, user, onBack }) => {
                 console.log('Error sharing:', error);
             }
         } else {
-            alert('Fitur share tidak didukung di browser ini.');
+            showAlert('Fitur share tidak didukung di browser ini.', 'info');
         }
     };
 
@@ -55,7 +54,7 @@ const ReportView: React.FC<ReportViewProps> = ({ history, user, onBack }) => {
         <div className="max-w-4xl mx-auto w-full pb-20">
             <div className="flex items-center justify-between mb-6 print:hidden">
                 <div className="flex items-center">
-                    <button onClick={onBack} className="bg-white p-2 rounded-full shadow hover:bg-gray-100 mr-4">
+                    <button onClick={onBack} className="bg-white p-2 rounded-full shadow hover:bg-gray-100 mr-4 print:hidden">
                         &larr;
                     </button>
                     <h2 className="text-3xl font-bold text-gray-800">Laporan Perkembangan</h2>
@@ -113,17 +112,17 @@ const ReportView: React.FC<ReportViewProps> = ({ history, user, onBack }) => {
                 </Card>
             </div>
 
-            {/* AI Section */}
+            {/* Local report section */}
             <Card color="bg-gradient-to-br from-purple-50 to-indigo-50" className="border-indigo-200">
                 <div className="flex items-center gap-3 mb-4">
                     <BrainCircuit className="text-indigo-600" size={32} />
-                    <h3 className="text-2xl font-bold text-indigo-800">Analisis Cerdas (AI)</h3>
+                    <h3 className="text-2xl font-bold text-indigo-800">Ringkasan Perkembangan</h3>
                 </div>
 
                 {!aiReport && !loading && (
                     <div className="text-center py-8">
-                        <p className="text-gray-600 mb-6">Dapatkan analisis mendalam tentang perkembangan {user.name} dan saran aktivitas dari AI.</p>
-                        <Button onClick={handleGenerateAI} variant="secondary" className="w-full md:w-auto mx-auto">
+                        <p className="text-gray-600 mb-6">Ringkasan ini dihitung dari data permainan {user.name} di aplikasi ini saja.</p>
+                        <Button onClick={handleLocalReport} variant="secondary" className="w-full md:w-auto mx-auto">
                             Buat Laporan Bulanan
                         </Button>
                     </div>
@@ -137,9 +136,9 @@ const ReportView: React.FC<ReportViewProps> = ({ history, user, onBack }) => {
                 )}
 
                 {aiReport && (
-                    <div className="bg-white rounded-xl p-6 shadow-inner text-gray-700 leading-relaxed animate-fade-in print:shadow-none print:p-0">
-                        <div className="prose prose-indigo max-w-none">
-                            <ReactMarkdown>{aiReport}</ReactMarkdown>
+                    <div className="bg-white rounded-xl p-6 shadow-inner text-gray-700 leading-relaxed animate-fade-in print:shadow-none print:p-0 text-justify">
+                        <div className="prose prose-indigo max-w-none text-justify">
+                            {aiReport}
                         </div>
                         <div className="mt-6 text-center">
                             <Button onClick={() => setAiReport(null)} variant="primary" className="text-sm py-2">

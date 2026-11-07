@@ -22,7 +22,7 @@ export interface GameResult {
 export interface MathQuestion {
   id: string;
   question: string;
-  answer: number | string; 
+  answer: number | string;
   options: (number | string)[];
   visualItems?: { type: string; count: number }[];
   type?: 'COUNT' | 'ADD' | 'SUB' | 'COMPARE' | 'MULT' | 'DIV' | 'SEQUENCE';
@@ -34,7 +34,7 @@ export interface ReadingQuestion {
   word: string;
   scrambledWord?: string;
   missingLetter?: string;
-  options: string[]; 
+  options: string[];
   type: 'MATCH_IMAGE' | 'MATCH_WORD' | 'MISSING_LETTER' | 'SCRAMBLE' | 'FIRST_LETTER' | 'OPPOSITE' | 'SENTENCE';
 }
 
@@ -47,4 +47,4 @@ export interface LogicQuestion {
   type: 'ODD_ONE_OUT' | 'PATTERN';
 }
 
-export type ViewState = 'LANDING' | 'PROFILE_SETUP' | 'HOME' | 'GAME_MATH' | 'GAME_READING' | 'GAME_LOGIC' | 'REPORT';
+export type ViewState = 'LANDING' | 'PROFILE_SETUP' | 'HOME' | 'GAME_MATH' | 'GAME_READING' | 'GAME_LOGIC' | 'GAME_LETTER' | 'GAME_SHAPES' | 'GAME_SIZE' | 'GAME_MEMORY' | 'GAME_TRACE' | 'GAME_ARRANGE' | 'GAME_CLUE' | 'STORIES' | 'PROFILE' | 'REPORT' | 'PRIVACY' | 'ABOUT';

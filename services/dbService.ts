@@ -2,108 +2,94 @@ import { supabase } from './supabaseClient';
 import { GameResult, UserProfile } from '../types';
 
 /**
- * Saves a completed game result to the database.
- * Assumes a table 'game_results' exists with columns:
- * user_id, category, score, total_questions, difficulty, created_at
+ * v2: fungsi-fungsi ini mengembalikan hasil yang bisa dibedakan pemanggilnya.
+ * - save/upsert mengembalikan boolean (bukan hanya console.error).
+ * - getUserProfile membedakan 'tidak ada profil' dari 'gagal mengambil profil',
+ *   karena v1 menyamakan keduanya dan bisa menimpa profil lama secara diam-diam.
+ * Tabel yang benar: calistung_game_results dan calistung_profiles
+ * (komentar v1 yang menyebut game_results/profiles adalah salah).
  */
-export const saveGameResult = async (userId: string, result: GameResult) => {
-  if (!userId) return;
 
-  const { error } = await supabase
-    .from('calistung_game_results')
-    .insert([
-      {
-        user_id: userId,
-        category: result.category,
-        score: result.score,
-        total_questions: result.totalQuestions,
-        difficulty: result.difficulty,
-        created_at: result.date
-      }
-    ]);
+export type ProfileResult =
+  | { kind: 'ok'; profile: UserProfile }
+  | { kind: 'not-found' }
+  | { kind: 'error' };
 
+export const saveGameResult = async (userId: string, result: GameResult): Promise<boolean> => {
+  if (!userId) return false;
+  const { error } = await supabase.from('calistung_game_results').insert([
+    {
+      user_id: userId,
+      category: result.category,
+      score: result.score,
+      total_questions: result.totalQuestions,
+      difficulty: result.difficulty,
+      created_at: result.date,
+    },
+  ]);
   if (error) {
     console.error('Error saving game result:', error);
-  } else {
-    console.log('Progress saved via Supabase');
+    return false;
   }
+  return true;
 };
 
-/**
- * Fetches game history for a user.
- */
 export const getUserHistory = async (userId: string): Promise<GameResult[]> => {
   if (!userId) return [];
-
   const { data, error } = await supabase
     .from('calistung_game_results')
-    .select('*')
+    .select('created_at,score,total_questions,category,difficulty')
     .eq('user_id', userId)
-    .order('created_at', { ascending: true });
-
+    .order('created_at', { ascending: false })
+    .limit(100);
   if (error) {
     console.error('Error fetching history:', error);
     return [];
   }
-
-  // Map DB structure back to frontend type
-  return data.map((item: any) => ({
+  if (!data) return [];
+  // Urutan kronologis untuk grafik/laporan, setelah mengambil 100 terbaru.
+  return [...data].reverse().map((item: any) => ({
     date: item.created_at,
     score: item.score,
     totalQuestions: item.total_questions,
     category: item.category,
-    difficulty: item.difficulty
+    difficulty: item.difficulty,
   }));
 };
 
-
-/**
- * Fetches the user profile.
- */
-export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
-  if (!userId) return null;
-
-  const { data, error } = await supabase
-    .from('calistung_profiles')
-    .select('*')
-    .eq('id', userId)
-    .single();
-
+export const getUserProfile = async (userId: string): Promise<ProfileResult> => {
+  if (!userId) return { kind: 'not-found' };
+  const { data, error } = await supabase.from('calistung_profiles').select('*').eq('id', userId).single();
   if (error) {
-    if (error.code !== 'PGRST116') {
-      console.error('Error fetching profile:', error);
-    }
-    return null;
+    if (error.code === 'PGRST116') return { kind: 'not-found' };
+    console.error('Error fetching profile:', error);
+    return { kind: 'error' };
   }
-
-  // Assuming DB columns match UserProfile fields
+  if (!data) return { kind: 'not-found' };
   return {
-    name: data.name,
-    age: data.age,
-    level: data.level,
-    avatar: data.avatar
+    kind: 'ok',
+    profile: {
+      name: data.name,
+      age: data.age,
+      level: data.level,
+      avatar: data.avatar,
+    },
   };
 };
 
-/**
- * Updates or creates the user profile.
- * Assumes a table 'profiles' exists.
- */
-export const upsertUserProfile = async (userId: string, profile: UserProfile) => {
-  if (!userId) return;
-
-  const { error } = await supabase
-    .from('calistung_profiles')
-    .upsert({
-      id: userId,
-      name: profile.name,
-      age: profile.age,
-      level: profile.level,
-      avatar: profile.avatar,
-      updated_at: new Date()
-    });
-
+export const upsertUserProfile = async (userId: string, profile: UserProfile): Promise<boolean> => {
+  if (!userId) return false;
+  const { error } = await supabase.from('calistung_profiles').upsert({
+    id: userId,
+    name: profile.name,
+    age: profile.age,
+    level: profile.level,
+    avatar: profile.avatar,
+    updated_at: new Date(),
+  });
   if (error) {
-    console.error("Error saving profile:", error);
+    console.error('Error saving profile:', error);
+    return false;
   }
+  return true;
 };

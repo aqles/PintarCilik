@@ -1,118 +1,64 @@
-<div align="center">
-  <img src="public/preview-desktop.png" alt="PintarCilik Dashboard" width="100%" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+# PintarCilik
 
-  <h1 style="margin-top: 20px; font-size: 3rem;">PintarCilik 🎓</h1>
+Game belajar untuk anak usia 4–6 tahun. Isinya membaca, berhitung, dan logika, dikemas sebagai permainan pendek yang bisa dimainkan di HP, tablet, atau komputer.
 
-  <p>
-    <strong>Aplikasi Belajar Interaktif untuk Anak Usia Dini</strong><br>
-    <em>Membaca, Berhitung, dan Logika dengan sentuhan AI & Gamifikasi.</em>
-  </p>
+Situsnya bisa langsung dibuka di [calistung.ednasalam.com](https://calistung.ednasalam.com). Masuknya pakai akun Google.
 
-  <p>
-    <a href="https://calistung.ednasalam.com">
-      <img src="https://img.shields.io/badge/Live_Demo-calistung.ednasalam.com-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
-    </a>
-    <img src="https://img.shields.io/badge/Tech_Stack-React_%7C_Vite_%7C_Tailwind-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="Tech Stack">
-    <img src="https://img.shields.io/badge/AI_Powered-Gemini_2.5-8E75B2?style=for-the-badge&logo=google&logoColor=white" alt="AI Powered">
-  </p>
-</div>
+![Tampilan PintarCilik](public/preview-desktop.png)
 
----
+## Isinya apa saja
 
-## 📖 Tentang Projek
+Ada 10 permainan, dibagi dalam tiga kelompok:
 
-**PintarCilik** adalah platform edukasi interaktif yang dirancang khusus untuk anak-anak prasekolah hingga sekolah dasar awal. Aplikasi ini menggabungkan metode belajar sambil bermain (*learning by doing*) dengan teknologi modern untuk memantau perkembangan anak.
+- **Membaca** — Membaca & Kata, Huruf & Benda, Menulis Huruf (menelusuri huruf di layar), Susun Kata, Tebak dari Ciri.
+- **Berhitung & Ukuran** — Berhitung & Angka (menghitung gambar, tambah, kurang), Besar & Kecil.
+- **Logika & Bentuk** — Logika & Pola, Warna & Bentuk, Kartu Memori.
 
-### ✨ Fitur Unggulan
+Selain permainan, ada **Cerita**: 7 cerita pendek yang bisa dibacakan dengan suara, buat dibaca bareng atau didengarkan sebelum tidur.
 
-- 🎮 **3 Mode Permainan**:
-  - **Membaca**: Mengenal huruf, suku kata, dan benda.
-  - **Berhitung**: Operasi matematika dasar dengan visual menarik.
-  - **Logika**: Asah kemampuan berpikir kritis dan pola.
-- 🤖 **Laporan Pintar (AI)**: Menggunakan **Google Gemini 2.0** untuk menganalisis riwayat bermain anak dan memberikan saran personal kepada orang tua.
-- 🏆 **Sistem Gamifikasi**: Level (Pemula, Menengah, Mahir), Skor, dan Avatar untuk memotivasi anak.
-- 🔐 **Login Aman**: Integrasi **Google Auth** via Supabase untuk menyimpan *progress* belajar dengan aman.
-- 📱 **Mobile Friendly**: Desain responsif yang nyaman digunakan di Tablet maupun Smartphone.
+Setiap soal punya tombol suara yang membacakan instruksinya, karena anak usia segini memang belum lancar membaca. Ada dua level: Pemula dan Menengah.
 
----
+## Buat orang tua
 
-## 🛠️ Teknologi yang Digunakan
+- Riwayat permainan tersimpan per akun. Di halaman Laporan ada jumlah permainan, rata-rata skor, dan skor per kelompok, plus saran kegiatan berikutnya. Laporan ini juga bisa dicetak atau disimpan sebagai PDF.
+- Laporan, halaman Profil, dan ganti level dikunci gerbang orang tua (soal tambah sederhana), jadi anak tidak bisa membukanya sendiri.
+- Di Profil, nama, umur, dan avatar anak bisa diubah. Ada juga pilihan teks lebih besar dan kurangi gerakan kalau anak lebih nyaman begitu.
 
-Project ini dibangun dengan *stack* modern untuk performa tinggi dan pengembangan yang cepat:
+Aplikasi ini bisa dipasang seperti aplikasi biasa (PWA) dan tetap bisa dibuka setelah pernah dimuat, walaupun koneksi sedang tidak ada.
 
-- **Frontend**: [React](https://react.dev/) + [Vite](https://vitejs.dev/) (TypeScript)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Backend / Auth**: [Supabase](https://supabase.com/) (PostgreSQL)
-- **Artificial Intelligence**: [Google Gemini API](https://ai.google.dev/) (via Vercel Serverless Functions)
-- **Deployment**: [Vercel](https://vercel.com/)
+## Menjalankan di komputer sendiri
 
----
-
-## 🚀 Cara Menjalankan (Local Development)
-
-Ikuti langkah ini untuk menjalankan aplikasi di komputer Anda:
-
-### 1. Clone Repository
 ```bash
 git clone https://github.com/aqles/PintarCilik.git
 cd PintarCilik
-```
-
-### 2. Install Dependencies
-```bash
 npm install
 ```
 
-### 3. Konfigurasi Environment Variables
-Buat file `.env` di root folder dan isi dengan kredensial Anda (lihat `.env.example`):
+Buat file `.env` (contohnya ada di `.env.example`) berisi alamat proyek Supabase dan anon key-nya:
 
 ```env
-# Supabase Configuration (Dari Dashboard Supabase)
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
-
-# Google Gemini API (Simpan di .env lokal, jangan commit!)
-GEMINI_API_KEY=your-secure-api-key
 ```
 
-> **Catatan Penting**: Untuk development lokal, jika ingin mencoba fitur AI, pastikan Anda menyesuaikan endpoint API atau menjalankannya via `vercel dev` untuk mendukung Serverless Functions.
+Lalu:
 
-### 4. Jalankan Aplikasi
 ```bash
 npm run dev
 ```
-Buka browser dan akses `http://localhost:3000`.
+
+Skema database ada di `supabase/schema.sql`. Jalankan file itu di SQL Editor Supabase untuk membuat tabel profil dan hasil permainan, lengkap dengan aturan supaya tiap akun hanya bisa mengakses datanya sendiri.
+
+## Teknologi
+
+React 19, Vite 6, TypeScript, Tailwind CSS 4, dan Supabase untuk login dan penyimpanan data.
+
+Riwayat versi ada di dalam aplikasi, di bagian Catatan Pembaruan.
+
+## Lisensi
+
+MIT. Lihat berkas [LICENSE](LICENSE).
 
 ---
 
-## 🌐 Deployment (Vercel)
-
-Aplikasi ini dioptimalkan untuk Vercel.
-
-1.  Push kode ke GitHub.
-2.  Import project di Dashboard Vercel.
-3.  Masukkan **Environment Variables** di pengaturan Vercel:
-    -   `GEMINI_API_KEY`
-    -   `SUPABASE_URL`
-    -   `SUPABASE_ANON_KEY`
-4.  Deploy!
-
----
-
-## 🔒 Keamanan
-
-- **API Key Protection**: API Key Gemini **tidak pernah** diekspos ke sisi klien. Permintaan diproses melalui *Serverless Function* (`api/gemini-report.ts`).
-- **Data User**: Autentikasi dan database dikelola oleh Supabase dengan kebijakan RLS (*Row Level Security*) yang ketat (opsional, disarankan untuk diaktifkan di sisi database).
-
----
-
-## 🤝 Kontribusi
-
-Ingin berkontribusi? Silakan buat *Pull Request* atau laporkan *issue* jika menemukan *bug*. Ide-ide kreatif untuk fitur baru sangat diterima!
-
----
-
-<div align="center">
-  <p>Dibuat dengan ❤️ dari Aql untuk pendidikan Indonesia.</p>
-  <p>© 2025 PintarCilik Project</p>
-</div>
+PintarCilik Project, 2025–2026.

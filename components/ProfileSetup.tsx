@@ -32,7 +32,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto w-full p-4 animate-fade-in-up">
+    <div className="max-w-md sm:max-w-lg mx-auto w-full p-4 animate-fade-in-up">
       <Card className="text-center">
         <h2 className="text-2xl font-bold text-indigo-700 mb-6">Kenalan Yuk! 👋</h2>
 

@@ -4,7 +4,7 @@ export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & { 
   children, variant = 'primary', className = '', ...props
 }) => {
   // Added touch-action-manipulation and active states
-  const baseStyles = "font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-all duration-200 active:scale-95 text-lg flex items-center justify-center gap-2 touch-manipulation select-none";
+  const baseStyles = "font-bold py-3 px-6 rounded-2xl shadow-lg transform transition-all duration-200 active:scale-95 text-lg flex items-center justify-center gap-2 touch-manipulation select-none min-h-[44px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400";
 
   const variants = {
     primary: "bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white border-b-4 border-blue-700 active:border-b-0 active:translate-y-1",
@@ -32,9 +32,16 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; col
 };
 
 export const ProgressBar: React.FC<{ current: number; total: number }> = ({ current, total }) => {
-  const percentage = Math.min(100, (current / total) * 100);
+  const percentage = total > 0 ? Math.min(100, (current / total) * 100) : 0;
   return (
-    <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4 overflow-hidden border-2 border-gray-300">
+    <div
+      className="w-full bg-gray-200 rounded-full h-3 sm:h-4 overflow-hidden border-2 border-gray-300"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={current}
+      aria-label={`Soal ${current + 1} dari ${total}`}
+    >
       <div
         className="bg-yellow-400 h-full rounded-full transition-all duration-500 ease-out"
         style={{ width: `${percentage}%` }}
